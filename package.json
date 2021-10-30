@@ -1,0 +1,13 @@
+{
+  "name": "bdl-matching-penny",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "query": "npx ts-node query.ts"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "web3": "^1.6.0"
+  }
+}
