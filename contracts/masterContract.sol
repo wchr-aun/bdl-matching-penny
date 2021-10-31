@@ -192,7 +192,8 @@ contract Matching_Pennies {
             address,
             address,
             int8,
-            int8
+            int8,
+            uint256
         )
     {
         return (
@@ -200,7 +201,8 @@ contract Matching_Pennies {
             _gameDetail[gameNo].player_2,
             _gameDetail[gameNo].winner,
             _gameDetail[gameNo].status,
-            _gameDetail[gameNo].penny
+            _gameDetail[gameNo].penny,
+            _gameDetail[gameNo].revealTimeLimit
         );
     }
 
