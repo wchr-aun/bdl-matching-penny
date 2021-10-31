@@ -56,11 +56,15 @@ contract Matching_Pennies {
         returns (uint256)
     {
         require(commitPenny != "", "Hash should not be empty");
+        require(commitPenny.length == 32, "The input is not a correct hash");
         _gameDetail[_gameNo].hash = commitPenny;
         _gameDetail[_gameNo].player_1 = msg.sender;
         _gameDetail[_gameNo].status = _openStatus;
         _gameDetail[_gameNo].penny = -1;
-        _gameNo += 1;
+        
+        uint256 newGameNo = _gameNo + 1;
+        assert(newGameNo > _gameNo);
+        _gameNo = newGameNo;
 
         return _gameNo;
     }
@@ -89,7 +93,10 @@ contract Matching_Pennies {
         _gameDetail[gameNo].status = _waitingStatus;
         _gameDetail[gameNo].player_2 = msg.sender;
         _gameDetail[gameNo].penny = penny;
-        _gameDetail[gameNo].revealTimeLimit = block.timestamp + _timeLimit;
+        
+        uint256 revealTimeLimit = block.timestamp + _timeLimit;
+        assert(revealTimeLimit > block.timestamp);
+        _gameDetail[gameNo].revealTimeLimit = revealTimeLimit;
 
         return true;
     }
@@ -199,5 +206,9 @@ contract Matching_Pennies {
 
     function checkGameNo() public view returns (uint256) {
         return _gameNo - 1;
+    }
+    
+    function checkTimeLimit() public view returns (uint256) {
+        return _timeLimit;
     }
 }
