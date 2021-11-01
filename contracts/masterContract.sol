@@ -11,7 +11,6 @@ contract Matching_Pennies {
         uint256 revealTimeLimit;
     }
     mapping(uint256 => GameDetail) private _gameDetail;
-    address private _owner;
     uint256 private _gameNo;
     uint256 private _timeLimit;
     uint256 private _bet;
@@ -27,13 +26,7 @@ contract Matching_Pennies {
         _;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == _owner, "You are not the owner of this contract");
-        _;
-    }
-
     constructor() {
-        _owner = msg.sender;
         _gameNo = 1;
         _timeLimit = 1 days;
         _bet = 1 ether;
@@ -43,10 +36,6 @@ contract Matching_Pennies {
         _revealedStatus = 3;
         _penalizedStatus = 4;
         _closedStatus = 0;
-    }
-
-    function setTimeLimit(uint256 t) public onlyOwner {
-        _timeLimit = t * 1 seconds;
     }
 
     function newGame(bytes32 commitPenny)
@@ -209,7 +198,7 @@ contract Matching_Pennies {
     function checkGameNo() public view returns (uint256) {
         return _gameNo - 1;
     }
-    
+
     function checkTimeLimit() public view returns (uint256) {
         return _timeLimit;
     }
